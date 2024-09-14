@@ -1,0 +1,35 @@
+public class WordEncryptor 
+{
+    public static String encryptString(String input1, int input2) {
+        StringBuilder encryptedString = new StringBuilder();
+        String[] words = input1.split(" ");
+        for (String word : words) 
+        {
+            StringBuilder encryptedWord = new StringBuilder();
+            for (char ch : word.toCharArray()) 
+            {
+                if (Character.isLetter(ch)) 
+                {
+                    char base = Character.isUpperCase(ch) ? 'A' : 'a';
+                    int originalValue = ch - base;
+                    int encryptedValue = (originalValue + input2) % 26;
+                    char encryptedChar = (char) (base + encryptedValue);
+                    encryptedChar = Character.isLowerCase(ch) ? Character.toUpperCase(encryptedChar) : Character.toLowerCase(encryptedChar);
+                    encryptedWord.append(encryptedChar);
+                } else 
+                {
+                    encryptedWord.append(ch);
+                }
+            }
+            encryptedString.append(encryptedWord).append(" ");
+        }
+        return encryptedString.toString().trim();
+    }
+    public static void main(String[] args)
+    {
+        String input1 = "Wipro Tech";
+        int input2 = 20;
+        String encrypted = encryptString(input1, input2);
+        System.out.println("Encrypted String: " + encrypted); 
+    }
+}
